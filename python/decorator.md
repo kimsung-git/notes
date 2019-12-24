@@ -3,7 +3,7 @@
 
 Decorator example with a simple timer function 
 
-Simple timer function example
+Simple timer function:
 ``` python
 def timer(func):
     def wrapper():
@@ -37,16 +37,16 @@ def computation_func():
 
 ### Decorating functions with Parameters
 
-A function that takes square from each element in a list
+A square function that takes square from each element in a list
 ```python 
 @timer
 def square(list_values):
     rst = [x**2 for x in list_values]
     print(rst)
 ```
-square function takes a parameter. It will throws an error with the orginal timer function because paramaters are not defined in wrapper function. 
+SInce square function takes a parameter, it will throws an error with the orginal timer function because paramaters are not defined in wrapper function. 
 
-Make sure to take arguments in the wrapper function 
+Make sure to take arguments in the wrapper function using *args, **kwargs or match arguments defined in square function. 
 ```python 
 def timer(func):
     def wrapper(*args, **kwargs):
@@ -61,7 +61,7 @@ def timer(func):
 
 ### Returning values from decorated function
 
-A function with return value
+A function with return value.
 ```python 
 @timer
 def square(list_values):
@@ -69,7 +69,7 @@ def square(list_values):
     return rst
 ```
 
-Corresponding timer function to a function with return value
+Corresponding timer function to a function with return value.
 ```python 
 def timer(func):
     def wrapper(*args, **kwargs):
@@ -137,7 +137,7 @@ def printer(msg):
     print(msg)
 printer("Hello")
 ```
-gives the output:
+Gives the output:
 
 ```
 ******************************
@@ -147,7 +147,7 @@ Hello
 ******************************
 ```
 
-above systnax is equivalent to the following
+Above systnax is equivalent to the following
 ```python
 printer = star(percent(printer))
 printer()
