@@ -41,8 +41,10 @@ git cherry-pick hashcode
 
 ### git checkout
 
-The `git checkout` command can be used in a __commit or file__ level scope. `git checkout` command is used to update the state of the repository to a specific point in the projects history. 
-It's useful for quickly inspecting an old version of your project.
+The `git checkout` command can be used in a __commit or file__ level scope. `git checkout` command is used to update the state of the repository to a specific point in the projects history.  It's useful for quickly inspecting an old version of your project.
+
+
+![git checkout](../images/git_checkout.png)
 
 **Checking out a file that is not staged yet** 
 ``` bash
@@ -77,9 +79,19 @@ do so (now or later) by using -b with the checkout command again. Example:
 git checkout -b <new-branch-name>
 ```
 
+***```git checkout``` file level***
+updates the working directory instead of the stage. Unlike the commit-level version of this command, this does not move the HEAD reference, which means that you won't switch branches. 
+
+``` bash
+git checkout -b <new-branch-name>
+```
+
+This will remove all of the subsequent changes to the file, whereas the `git revert` command undoes only the changes introduced by the specified commit. 
+
 ## git reset
-`git reset` takes a specified commit and resets the "three trees" (working directory, staging area, commit) to match the state of the repository at that specified commit. 
-`git reset` alter the existing commit history - used to undo changes on a private branch. 
+`git reset` takes a specified commit and resets the "three trees" (working directory, staging area, commit) to match the state of the repository at that specified commit. `git reset` alters the existing commit history - used to undo changes on a private branch. 
+
+![git checkout](../images/git_reset.png)
 
 **git reset --soft**
 Set us back to commit we specified, but keep the changes we made in the **staging area.**
@@ -121,12 +133,26 @@ Untracked files:
 
 	c   # leave untracked files only if they exist(file c was not commited)
 ```
+**git reset --soft, mixed, hard summary**
+
+![git checkout](../images/git_reset2.png)
+
+***`git reset` file level***
+`git reset` updates the staged snapshot to match the version from the speicifed commit. The staged snapshot is always updated, and the working directory is never updated. 
+
+This command will fetch the version of `filename` in the 2nd-to-last commit and stage it for the next commit. 
+
+``` bash
+git reset HEAD~2 filename
+```
+
 
 ### git clean
 Remove untracked files from the working directory
 ``` bash
 git clean -df
 ```
+
 
 
 ## git revert
@@ -138,3 +164,15 @@ Use `git revert` in case people already checkout the commit you want to undo - u
 
 `git revert` can only be run at a commit level scope. 
 
+`git revert` command undoes only the changes introduced by the specified commit(This does not undo the subsequent changes to the commit).
+
+``` bash
+git revert hashcode
+git revert HEAD~1
+```
+You would probably have to fix conflict if exists.
+
+If you want to revert all the commit(not recommended..)
+``` bash
+git revert HEAD~5..HEAD~1
+```
