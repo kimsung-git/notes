@@ -29,7 +29,7 @@ class MyModel(tf.keras.Model):
         # define your layers here
     def call(self, inputs, training):
         # define your model's forward pass
-        # input data gets passed to call function
+        # input data gets passed to this call function
         # optional training argument -  different behavior in training and inference
 ```
 
