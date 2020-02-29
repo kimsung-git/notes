@@ -2,7 +2,7 @@
 
 Check callback.md for more detail on ModelCheckpoint
 
-#### Saving only weights
+## Saving only weights
 
 checkpoint-formatted ```ckpt``` files are files that contain only the trained weight in a binary format. 
 * One or more shards that contain your model's weights
@@ -87,7 +87,7 @@ model.evaluate(..)
 ```
 
 
-#### Whole-model saving
+## Whole-model saving
 
 ```model.save``` 
 **SavedModel, HDF5**
