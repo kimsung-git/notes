@@ -11,7 +11,7 @@ from tf.keras import Model
 
 1. With the "functional API", where you start from ```Input```
 
-``` python
+```python
 import tensorflow as tf
 inputs = tf.keras.Input(shape=(3,))
 x = tf.keras.layers.Dense(4, activation=tf.nn.relu)(inputs)
@@ -22,7 +22,7 @@ model = tf.keras.Model(inputs=inputs, outputs=outputs)
 2. By subclassing the ```Model``` class. In that case, you should define your layers in ```__init__``` and you should implement the model's forward pass in ```call```.
 
 Example - skeleton 
-``` python
+```python
 class MyModel(tf.keras.Model):
     def __init__(self):
         super(MyModel, self).__init__()
@@ -35,7 +35,7 @@ class MyModel(tf.keras.Model):
 
 Example - subclassing using Model API
 
-``` python
+```python
 class MyModel(tf.keras.Model):
     def __init__(self):
         super(MyModel, self).__init__()
