@@ -51,6 +51,7 @@ model.fit(train_images,
 ```
 
 **Manually Save weights**
+
 simply call save_weights after train is done
 
 ```python
@@ -89,7 +90,6 @@ model.evaluate(..)
 
 ## Whole-model saving
 
-```model.save``` 
 **SavedModel, HDF5**
 
 * The models' architecture
@@ -102,6 +102,7 @@ Entire model can be saved in two different file formats (SavedModel, HDF5). Save
 Custom object (subclassed models or layers) require special attention when saving and loading
 
 **HDF5 format**
+
 Keras povides a basic save format using the HDF5 standard
 ```python
 model.save('path/to/save.h5')
@@ -110,7 +111,7 @@ model.save('path/to/save.h5')
 new_model = keras.model.load_model('path/to/save.h5')
 ```
 
-#### Export to SavedModel(.pb)
+**SavedModel(.pb)**
 
 Export a whole model to the TensorFlow ```SaveModel``` format. ```SavedModel``` is a standalone serialization format for TensorFlow objects, supported by tf serving as well as tf implementations other than python. File expension is ```.pb```. The SavedModel format is a directory containing a protobuf binary and a tensorflow checkpoint. 
 
