@@ -21,6 +21,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 ```
 
 **Save uniquely named checkpoints once every Nth epoch**
+
 ```python
 # Include the epoch in the file name (uses `str.format`)
 checkpoint_path = "training_2/cp-{epoch:04d}.ckpt"
@@ -46,13 +47,16 @@ model.fit(train_images,
           callbacks=[cp_callback],
           validation_data=(test_images,test_labels),
           verbose=0)
+
 ```
 
 **Manually Save weights**
 simply call save_weights after train is done
+
 ```python
 model.save_weights('./checkpoints/my_checkpoint')
 ```
+
 Load saved weight and create a model 
 ```python
 
