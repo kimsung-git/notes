@@ -57,7 +57,10 @@ model = keras.Model(inputs=[image_input, timeseries_input],
                     outputs=[score_output, class_output])
 
 
+```
+![git checkout](../../images/model_str1.png)
 
+``` python
 # 1. model compile - List
 model.compile(
     optimizer=keras.optimizers.RMSprop(1e-3),
