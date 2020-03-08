@@ -63,8 +63,8 @@ nohup tensorflow_model_server \
 
 ### Make a request to your model in TensorFlow Serving
 
-
 **Make REST requests**
+
 Send a predict request as a POST to our server's REST endpoint. 
 
 ```python
