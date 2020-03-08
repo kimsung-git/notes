@@ -75,10 +75,11 @@ docker pull tensorflow/serving
   * optional ev var ```MODEL_NAME``` (defaults to ```model```)
   * optional ev var ```MODEL_BASE_PATH``` (defaults to ```/models```) 
 
-Tensorflow searches serverable under ```${MODEL_BASE_PATH}/${MODEL_NAME}``` directory. Make sure to mount your models from host to ```${MODEL_BASE_PATH}/${MODEL_NAME}/``` when running docker container. 
+Tensorflow searches serverable under ```${MODEL_BASE_PATH}/${MODEL_NAME}``` directory. Make sure to mount your models from host to ```${MODEL_BASE_PATH}/${MODEL_NAME}/``` when running docker container. See the example below.
 
 
-Example
+Example.
+
 Saved model directory and corresponding files.
 ```bash
 $ pwd
@@ -90,13 +91,21 @@ assets  saved_model.pb  variables
 Serving with docker container
 ```bash
 docker run -dt --name name --rm -p 8501:8501 \
-        # point to model_dir(do not include 1, which is the version) when you mount
-        # bind MODEL_NAME(fashion_model) to the default MODEL_BASE_PATH(which is /models) -> /models/fashion_model
+        # when you mount(-v)
+        # 1. point to model_dir(do not include 1, which is the version)
+        # 2. bind MODEL_NAME(fashion_model) to the MODEL_BASE_PATH(which is /models (default)) -> /models/fashion_model
         -v ${PWD}/model_dir:/models/fashion_model \   # ${MODEL_BASE_PATH}/${MODEL_NAME} 
         -e MODEL_NAME=fashion_model \
         tensorflow/serving 
 ```
-
+if you set ```MODEL_BASE_PATH=/m``` then you should mount as the following.
+```bash
+docker run -dt --name name --rm -p 8501:8501 \
+        -v ${PWD}/model_dir:/m/fashion_model \   
+        -e MODEL_NAME=fashion_model \
+        -e MODEL_BASE_PATH=/m \
+        tensorflow/serving 
+```
 
 ### Make a request to your model in TensorFlow Serving
 
