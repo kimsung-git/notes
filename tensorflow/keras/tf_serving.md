@@ -61,6 +61,44 @@ nohup tensorflow_model_server \
     --model_base_path="${MODEL_DIR}" > server.log 2>&1
 ```
 
+
+### Tensorflow Serving with Docker
+
+Pull tensorflow serving image.
+``` bash
+docker pull tensorflow/serving
+```
+
+* The serving images(both CPU and GPU ) have the following properties:
+  * Port 8500 exposed for gRPC
+  * Port 8501 exposed for the REST API
+  * optional ev var ```MODEL_NAME``` (defaults to ```model```)
+  * optional ev var ```MODEL_BASE_PATH``` (defaults to ```/models```)
+
+Take a model we named ```my_model``` and bound it to the default model base path ```${MODEL_BASE_PATH}/${MODEL_NAME} = /models/my_model```.
+
+Example
+Saved model directory and corresponding files.
+```bash
+$ pwd
+/blah/blah/model_dir/1
+$ ls
+assets  saved_model.pb  variables
+```
+
+Serving with docker container
+```bash
+docker run -dt --name name --rm -p 8501:8501 \
+        # point to model_dir(do not include 1, which is the version)
+        # /model is default directory of MODEL_BASE_PATH
+        # bind model name to the default MODEL_BASE_PATH
+        # ex) ${MODEL_BASE_PATH}/${MODEL_NAME} = /models/fashion_model
+        -v ${PWD}/model_dir:/model/fashion_model \   
+        -e MODEL_NAME=fashion_model \
+        tensorflow/serving 
+```
+
+
 ### Make a request to your model in TensorFlow Serving
 
 **Make REST requests**
@@ -79,3 +117,4 @@ json_response = requests.post('http://localhost:8501/v1/models/fashion_model:pre
 # returns in list
 predictions = json.loads(json_response.text)['predictions']
 ```
+
