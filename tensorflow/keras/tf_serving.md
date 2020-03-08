@@ -73,9 +73,10 @@ docker pull tensorflow/serving
   * Port 8500 exposed for gRPC
   * Port 8501 exposed for the REST API
   * optional ev var ```MODEL_NAME``` (defaults to ```model```)
-  * optional ev var ```MODEL_BASE_PATH``` (defaults to ```/models```)
+  * optional ev var ```MODEL_BASE_PATH``` (defaults to ```/models```) 
 
-Take a model we named ```my_model``` and bound it to the default model base path ```${MODEL_BASE_PATH}/${MODEL_NAME} = /models/my_model```.
+Tensorflow searches serverable under ```${MODEL_BASE_PATH}/${MODEL_NAME}``` directory. Make sure to mount your models from host to ```${MODEL_BASE_PATH}/${MODEL_NAME}/``` when running docker container. 
+
 
 Example
 Saved model directory and corresponding files.
@@ -89,11 +90,9 @@ assets  saved_model.pb  variables
 Serving with docker container
 ```bash
 docker run -dt --name name --rm -p 8501:8501 \
-        # point to model_dir(do not include 1, which is the version)
-        # /model is default directory of MODEL_BASE_PATH
-        # bind model name to the default MODEL_BASE_PATH
-        # ex) ${MODEL_BASE_PATH}/${MODEL_NAME} = /models/fashion_model
-        -v ${PWD}/model_dir:/model/fashion_model \   
+        # point to model_dir(do not include 1, which is the version) when you mount
+        # bind MODEL_NAME(fashion_model) to the default MODEL_BASE_PATH(which is /models) -> /models/fashion_model
+        -v ${PWD}/model_dir:/models/fashion_model \   # ${MODEL_BASE_PATH}/${MODEL_NAME} 
         -e MODEL_NAME=fashion_model \
         tensorflow/serving 
 ```
